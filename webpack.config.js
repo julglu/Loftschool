@@ -14,7 +14,7 @@ rules.push({
 });
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/cookie.js',
     output: {
         filename: '[name].[hash].js',
         path: path.resolve('dist')
