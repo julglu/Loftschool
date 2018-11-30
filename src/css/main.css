@@ -1,0 +1,140 @@
+body {
+    background-color: #808080;
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+.panel {
+    position: absolute;
+    background-color: #999999;
+
+    height: 100%;
+    left: 50%;
+    margin-left: -500px;
+    width: 1000px;
+}
+
+.main {
+    position: absolute;
+    background-color: #FFFFFF;
+
+    left: 50%;
+    top: 50%;
+    margin-left: -352px;
+    margin-top: -250px;
+    height: 500px;
+    width: 704px;
+
+    border-radius: 15px;
+}
+
+.header {
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    background-color: #ff8663;
+    height: 40px;
+}
+
+.header div {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.footer {
+    position: relative;
+    border-radius: 0 0 15px 15px;
+    background-color: #f0f0f0;
+    height: 40px;
+}
+
+#btnSave {
+    position: relative;
+    background-color: #ff8663;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    padding: 7px;
+    margin: 5px;
+    left: 85%;
+}
+
+.list {
+    width: 350px;
+    height: 380px;
+    float: left;
+    border: 1px solid #f0f0f0;
+    padding: 10px 0;
+    overflow-y: scroll;
+}
+
+.list span {
+    padding: 10px;
+}
+
+.filter {
+    position: relative;
+    background-color: #f0f0f0;
+    height: 40px;
+    width:50%;
+    float: left;
+}
+.input {
+    border:none;
+    border-radius: 10px;
+    width:85%;
+    margin:8px;
+    padding:5px 15px;
+}
+
+.friend {
+    border-bottom: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+    vertical-align: center;
+    overflow: auto;
+}
+
+.photo {
+    float:left;
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+    margin: 10px;
+    display:inline-block;
+    pointer-events: none;
+}
+
+.name {
+    margin-top: 25px;
+    float:left;
+    display:inline-block;
+    pointer-events: none;
+}
+
+.friend-btn {
+    border: none;
+    margin: 17px 7px;
+    display:inline-block;
+    float:right;
+
+    width: 30px;
+    height: 30px;
+    background: transparent no-repeat center;
+    background-size: 20px;
+
+}
+
+.general button {
+    background-image: url("../img/plus.png");
+}
+
+.selected button {
+    background-image: url("../img/close.png");
+
+}
+
+
+.friend:hover {
+    background-color: #f0f0f0;
+}
