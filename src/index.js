@@ -1,7 +1,7 @@
 import './css/main.css';
 import './js/DnD';
 import { auth, callAPI } from './js/VK'
-import { isMatching } from './js/utils';
+import { isMatching, isAnyOfArrayMatching } from './js/utils';
 import template from './templates/friend-list.hbs';
 
 const generalListBlock = document.getElementById('general');
@@ -14,10 +14,10 @@ let generalList;
 let selectedList;
 
 auth()
-    .then (()=>{
+    .then(() => {
         return callAPI('friends.get', { fields: 'photo_50' });
     })
-    .then((friends)=>{
+    .then((friends) => {
         generalList = storage.general ? JSON.parse(storage.general) : friends.items;
         selectedList = storage.selected ? JSON.parse(storage.selected) : [];
 
@@ -36,14 +36,18 @@ document.addEventListener('click', e => {
         const selectedFriendsBlock = document.getElementById(listBlockID);
 
         listBlock.removeChild(friendBlock);
-        selectedFriendsBlock.appendChild(friendBlock);
+        if (isMatching(friendBlock.querySelector('.name').innerText, getFilter(listBlock, false).value)) {
 
+            selectedFriendsBlock.appendChild(friendBlock);
+        }
         changeFriendLists(friendBlock, friendListStatus.currList, friendListStatus.futureList);
 
     } else if (e.target.classList.contains('save-btn')) {
         // Сохранить оба списка в LocalStorage
         storage.general = JSON.stringify(generalList);
         storage.selected = JSON.stringify(selectedList);
+
+        alert('Данные сохранены');
     }
 });
 
@@ -51,6 +55,11 @@ document.addEventListener('friendDrop', (e) => {
     const droppedFriend = document.querySelector('.dropped-friend');
 
     if (droppedFriend) {
+        let listBlock = droppedFriend.parentNode;
+
+        if (!isMatching(droppedFriend.querySelector('.name').innerText, getFilter(listBlock, true).value)) {
+            droppedFriend.style.display = 'none';
+        }
 
         if (e.target.classList.contains('friend')) {
             const friendListStat = getListStatus(droppedFriend.parentNode);
@@ -107,9 +116,17 @@ function changeFriendLists(friendBlock, fromList, toList, afterID) {
 }
 
 function reDrawFriendList(block, friendList, filter) {
-    let items = friendList.filter(f => isMatching(f.first_name, filter.value) || isMatching(f.last_name, filter.value));
+    let items = friendList.filter(f => isAnyOfArrayMatching([f.first_name, f.last_name], filter.value));
 
     block.innerHTML = template({ items });
 
+}
+
+function getFilter(listBlock, isCurrent) {
+    if (listBlock.classList.contains('general')) {
+        return isCurrent ? generalFilter : selectedFilter;
+    }
+
+    return isCurrent ? selectedFilter : generalFilter;
 }
 
